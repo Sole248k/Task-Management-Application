@@ -245,6 +245,7 @@ To test the application:
 ## 👤 Author
 
 CARL LAWRENCE LONTAC (Sole248k)
+
 Created as part of the Junior Data Engineer/Analyst technical assessment.
 
 ## 📝 Notes
