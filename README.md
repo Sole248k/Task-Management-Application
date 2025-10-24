@@ -46,7 +46,7 @@ The application follows OOP best practices:
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/Sole248k/Task-Management-Application.git
    cd task-management-app
    ```
 
