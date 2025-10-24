@@ -73,7 +73,7 @@ def print_header(title: str) -> None:
 
 def print_task_table(tasks: List[Task]) -> None:
     """
-    Print tasks in a formatted table.
+    Print tasks in a detailed format showing all attributes.
     
     Args:
         tasks: List of Task objects to display
@@ -82,26 +82,11 @@ def print_task_table(tasks: List[Task]) -> None:
         print("\n📭 No tasks to display.")
         return
     
-    # Define column widths
-    col_id = 6
-    col_title = 25
-    col_priority = 10
-    col_status = 12
-    col_due = 12
-    
-    # Print header
     print()
-    print("-" * (col_id + col_title + col_priority + col_status + col_due + 16))
-    print(f"{'ID':<{col_id}} | {'Title':<{col_title}} | {'Priority':<{col_priority}} | "
-          f"{'Status':<{col_status}} | {'Due Date':<{col_due}}")
-    print("-" * (col_id + col_title + col_priority + col_status + col_due + 16))
+    separator = "=" * 100
     
-    # Print tasks
-    for task in tasks:
-        # Truncate title if too long
-        title = task.title if len(task.title) <= col_title else task.title[:col_title-3] + "..."
-        
-        # Color coding for status
+    for i, task in enumerate(tasks, 1):
+        # Color coding for status and priority
         status_icon = {
             'Pending': '⏳',
             'In progress': '🔄',
@@ -114,11 +99,24 @@ def print_task_table(tasks: List[Task]) -> None:
             'High': '🔴'
         }.get(task.priority, '•')
         
-        print(f"{task.task_id:<{col_id}} | {title:<{col_title}} | "
-              f"{priority_icon} {task.priority:<{col_priority-2}} | "
-              f"{status_icon} {task.status:<{col_status-2}} | {task.due_date:<{col_due}}")
+        # Format creation timestamp
+        if isinstance(task.created_at, datetime):
+            created_str = task.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            created_str = str(task.created_at)
+        
+        print(separator)
+        print(f"Task #{i} - ID: {task.task_id}")
+        print(separator)
+        print(f"📌 Title       : {task.title}")
+        print(f"📝 Description : {task.description}")
+        print(f"📅 Due Date    : {task.due_date}")
+        print(f"{priority_icon}  Priority    : {task.priority}")
+        print(f"{status_icon}  Status      : {task.status}")
+        print(f"🕐 Created At  : {created_str}")
+        print()
     
-    print("-" * (col_id + col_title + col_priority + col_status + col_due + 16))
+    print(separator)
 
 
 def format_timestamp(timestamp: datetime) -> str:
